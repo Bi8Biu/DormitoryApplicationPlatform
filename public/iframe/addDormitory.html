@@ -1,0 +1,121 @@
+<!--
+ * @Explain: 
+ * @version: 
+ * @Author: SuperLy
+ * @Date: 2021-08-01 16:36:53
+ * @LastEditors: SuperLy
+ * @LastEditTime: 2021-08-01 19:11:24
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加宿舍数据</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/jquery-3.5.1.min.js.js"></script>
+</head>
+
+<body>
+    <form class="layui-form" action="" style="margin-top: 5%;width: 90%;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属楼栋</label>
+            <div class="layui-input-block">
+                <select name="bui_id" lay-verify="required" id="bui_sel">
+                  <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">寝室号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="dor_id" required lay-verify="required" placeholder="请输入寝室号" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label" style="width: 100px;">最大入住人数</label>
+            <div class="layui-input-inline">
+                <input type="text" name="max_num" required lay-verify="required" placeholder="请输入最大入住人数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">男寝 | 女寝</label>
+            <div class="layui-input-block">
+                <input type="radio" name="dor_sex" value="男" title="男" checked>
+                <input type="radio" name="dor_sex" value="女" title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="dormitory_add">添加数据</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $(function() {
+            // 获取楼栋列表
+            $.post('http://localhost:3000/getBuilding', function(result) {
+                if (result.state === 1) {
+                    let $bui_sel = $('#bui_sel');
+                    let optionHtml = '<option value=""></option>';
+                    for (let i = 0; i < result.data.length; i++) {
+                        optionHtml += `<option value="${result.data[i].bui_id}">${result.data[i].bui_id}</option>`
+                    }
+                    $bui_sel.html(optionHtml);
+                    layui.form.render('select');
+                } else {
+                    layer.msg("获取楼栋列表失败,请联系管理员", {
+                        time: 1000,
+                        icon: 5
+                    }, function() {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    })
+                }
+            });
+            layui.form.on('submit(dormitory_add)', function(data) {
+                // 发请求
+                $.ajax({
+                    url: 'http://localhost:3000/addDormitory',
+                    method: 'post',
+                    data: data.field,
+                    success: (result) => {
+                        if (result.state === 1) {
+                            layer.msg("添加数据成功", {
+                                time: 1000,
+                                icon: 6
+                            }, function() {
+                                parent.list_render = 1;
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                            });
+                        } else if (result.state === 0) {
+                            layer.msg("该寝室已存在", {
+                                time: 1000,
+                                icon: 5
+                            });
+                        } else if (result.state === -1) {
+                            layer.msg("添加数据出错，请稍后再试", {
+                                time: 1000,
+                                icon: 5
+                            });
+                        }
+                    },
+                    error: (err) => {
+                        layer.msg("请求异常，请稍后再试", {
+                            time: 1000,
+                            icon: 5
+                        })
+                    }
+                })
+                return false;
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+body {
+    background-color: #f1f1f1;
+}
+
+.top_nav {
+    height: 60px;
+}
+
+.top_nav .logo {
+    float: left;
+    line-height: 60px;
+    font-size: 25px;
+}
+
+.top_nav .logo_li {
+    cursor: pointer;
+}
+
+.admin_msg {
+    float: left;
+    padding: 0px 100px;
+}
+
+.admin_msg span {
+    line-height: 60px;
+    color: red;
+    font-weight: 700;
+}
+
+.top_nav_user {
+    float: right;
+}
+
+ul {
+    border-radius: 0px !important;
+}
+
+.layui-side {
+    top: 60px;
+    min-width: 100px;
+    width: 12%;
+}
+
+.layui-body {
+    left: 13%;
+    padding: 20px;
+    width: 85%;
+}
+
+#my_dor,
+#dor,
+#apply,
+#dor_info,
+#choice_dor,
+#roommate_cord {
+    display: none;
+}
+
+.current {
+    display: block !important;
+}
+
+.dor_tr,
+.sex_tr,
+.flag_tr {
+    display: none !important;
+}
+
+blockquote span:first-child {
+    color: red;
+    ;
+}
+
+.layui-card-body li {
+    padding: 5px;
+}
+
+.layui-card-body li a {
+    letter-spacing: 3px;
+    display: block;
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    color: rgb(110, 110, 110);
+}
+
+.layui-card-body li a:hover {
+    background-color: #CFCFCF;
+}
+
+.layui-card-body li p {
+    letter-spacing: 0px;
+    margin-top: 15px;
+    font-size: 30px;
+    color: #009688;
+}

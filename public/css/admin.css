@@ -1,0 +1,102 @@
+body {
+    background-color: #f1f1f1;
+}
+
+.top_nav {
+    height: 60px;
+}
+
+.top_nav .logo {
+    float: left;
+    line-height: 60px;
+    font-size: 25px;
+}
+
+.top_nav .logo_li {
+    cursor: pointer;
+}
+
+.top_nav_user {
+    float: right;
+}
+
+.isChoose {
+    width: 300px;
+    float: left;
+    height: 60px;
+    line-height: 60px;
+}
+
+.isChoose label {
+    line-height: 55px;
+}
+
+ul {
+    border-radius: 0px !important;
+}
+
+.layui-side {
+    top: 60px;
+    min-width: 100px;
+    width: 12%;
+}
+
+.layui-body {
+    left: 13%;
+    padding: 20px;
+    width: 85%;
+}
+
+#welcome,
+#stu,
+#bui,
+#dor,
+#apply,
+.sno_tr,
+.name_tr,
+.dor_tr,
+.bui_tr,
+.flag_tr,
+.sex_tr {
+    display: none;
+}
+
+.current {
+    display: block !important;
+}
+
+#stu_add,
+#bui_add,
+#dor_add {
+    margin-left: 10px;
+}
+
+blockquote span:first-child {
+    color: red;
+    ;
+}
+
+.layui-card-body li {
+    padding: 5px;
+}
+
+.layui-card-body li a {
+    letter-spacing: 3px;
+    display: block;
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    color: rgb(110, 110, 110);
+}
+
+.layui-card-body li a:hover {
+    background-color: #CFCFCF;
+}
+
+.layui-card-body li p {
+    letter-spacing: 0px;
+    margin-top: 15px;
+    font-size: 30px;
+    color: #009688;
+}

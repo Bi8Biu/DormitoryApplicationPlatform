@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* 背景 start */
+
+body {
+    background-color: #454852;
+}
+
+.bear {
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    height: 100px;
+    background-image: url(../img/bear.png);
+    animation: bear_run .7s steps(8) infinite, bear_stop 3s .5s linear forwards;
+}
+
+@keyframes bear_run {
+    0% {
+        background-position-x: 0;
+    }
+    100% {
+        background-position-x: -1600px;
+    }
+}
+
+@keyframes bear_stop {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+div[class^="mountain"] {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.mountain_1 {
+    height: 336px;
+    background-image: url(../img/bg1.png);
+    animation: mountain 30s linear infinite;
+}
+
+.mountain_2 {
+    height: 384px;
+    background-image: url(../img/bg2.png);
+    animation: mountain 50s linear infinite;
+}
+
+.mountain_3 {
+    height: 569px;
+    background-image: url(../img/bg3.png);
+    animation: mountain 70s linear infinite;
+}
+
+@keyframes mountain {
+    0% {
+        background-position-x: 0;
+    }
+    100% {
+        background-position-x: -3840px;
+    }
+}
+
+
+/* 背景 end */
+
+.layui-container {
+    padding: 30px !important;
+}
+
+.login_box {
+    margin-top: 85px;
+    height: 300px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.box_title {
+    position: absolute;
+    right: 10%;
+    width: 80%;
+    height: 50px;
+    margin-top: 30px;
+    line-height: 50px;
+    padding-left: 15%;
+    color: #fff;
+    background: #189F92
+}
+
+.login {
+    /* height: 400px; */
+    position: absolute;
+    top: 110px;
+    right: 10%;
+    width: 80%;
+    height: 100px;
+}

@@ -1,0 +1,9 @@
+{
+    "dependencies": {
+        "@types/node": "^16.4.10",
+        "connect-mongo": "^4.4.1",
+        "express": "^4.17.1",
+        "express-session": "^1.17.2",
+        "mongoose": "^5.13.5"
+    }
+}

@@ -1,0 +1,173 @@
+<!--
+ * @Explain: 
+ * @version: 
+ * @Author: SuperLy
+ * @Date: 2021-07-31 12:16:15
+ * @LastEditors: SuperLy
+ * @LastEditTime: 2021-11-02 14:01:02
+-->
+<!-- 设计一个用于高校学生的在线宿舍申请平台，实现宿舍申请（选择）、调整、退住等功能。 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宿舍申请系统</title>
+    <link rel="icon" href="./img/title.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="./css/student.css">
+    <script src="./layui/layui.js"></script>
+    <script src="./js/jquery-3.5.1.min.js.js"></script>
+    <script src="./js/student.js"></script>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+
+        <!-- 顶部导航栏 -->
+        <div class="layui-header">
+            <ul class="layui-nav top_nav" lay-bar="disabled">
+                <li class="logo_li">
+                    <span class="logo">宿舍申请系统</span>
+                </li>
+                <li class="admin_msg">
+                    <span></span>
+                </li>
+                <li class="layui-nav-item top_nav_user">
+                    <a href="javascript:;"><img src="./img/头像.jpg" class="layui-nav-img"><span class="name">姓名</span> </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" id="edit">修改个人信息</a></dd>
+                        <hr>
+                        <dd style="text-align: center;"><a href="javascript:;" id="exit">退出</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <!-- 侧边栏 -->
+        <div class="layui-side layui-bg-black">
+            <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="side" style="margin-right: 10px;">
+                <li class="layui-nav-item layui-this"><a href="javascript:;">我的宿舍</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">宿舍列表</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">我提交的申请</a></li>
+            </ul>
+        </div>
+        <!-- 内容区域 -->
+        <div class="layui-body">
+            <div id="my_dor" class="current">
+                <blockquote class="layui-elem-quote">欢迎学生：<span class="name"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前时间：<span id="time"></span></blockquote>
+                <div id="dor_info">
+                    <div class="layui-card">
+                        <div class="layui-card-header" style="padding-top:5px;">我的宿舍<a href="javascript:;" class="layui-btn layui-btn-danger" style="float: right;" id="exit_dor">退出宿舍</a></div>
+                        <div class="layui-card-body">
+                            <ul class="layui-row">
+                                <li class="layui-col-md4">
+                                    <a href="javascript:;">楼栋名<p id="bui_id">null</p></a>
+                                </li>
+                                <li class="layui-col-md4">
+                                    <a href="javascript:;">宿舍号<p id="dor_id">null</p></a>
+                                </li>
+                                <li class="layui-col-md4">
+                                    <a href="javascript:;">最大入住人数<p id="max_num">null</p></a>
+                                </li>
+                                <li class="layui-col-md4">
+                                    <a href="javascript:;">已入住人数<p id="cur_num">null</p></a>
+                                </li>
+                                <li class="layui-col-md4">
+                                    <a href="javascript:;">剩余床位<p id="dif_num">null</p></a>
+                                </li>
+                                <li class="layui-col-md4">
+                                    <a href="javascript:;">寝室类型<p id="dor_sex">null</p></a>
+                                </li>
+                            </ul>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="layui-card" id="roommate_cord">
+                        <div class="layui-card-header">寝室成员</div>
+                        <div class="layui-card-body">
+                            <ul class="layui-row" id="roommate_ul">
+                            </ul>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div id="choice_dor">
+                    <div id="err_404 " style="text-align: center; ">
+                        <h2><i class="layui-icon layui-icon-404 " style="line-height: 400px;font-size: 400px; "></i></h2>
+                        <h1>您还没有选择宿舍，快去选择宿舍吧~</h1>
+                    </div>
+
+                </div>
+            </div>
+            <div id="dor">
+                <!-- 筛选下拉框 -->
+                <div class="layui-form">
+                    <div class="layui-inline">
+                        <select name="bui" lay-filter="bui_sel" id="bui_sel">
+                        
+                        <!-- 渲染 option -->
+                        </select>
+                    </div>
+                    <div class="layui-inline">
+                        <select name="dor_sex" lay-filter="dor_sex_sel" id="sex_sel">
+                        <option value="">男女寝室筛选</option>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div class="layui-inline">
+                        <select name="flag" lay-filter="flag_sel" id="flag_sel">
+                        <option value="" >满员筛选</option>
+                        <option value="1">未满宿舍</option>
+                        <option value="0">已满宿舍</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 宿舍列表 -->
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>楼栋名</th>
+                            <th>宿舍号</th>
+                            <th>已入住人数</th>
+                            <th>最大入住人数</th>
+                            <th>男寝 | 女寝</th>
+                            <th style="width:150px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dor_list">
+                    </tbody>
+                </table>
+            </div>
+            <div id="apply">
+                <!-- 宿舍列表 -->
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>申请入住楼栋</th>
+                            <th>申请入住宿舍</th>
+                            <th>申请时间</th>
+                            <!-- 待处理 已处理 已拒绝 -->
+                            <th>申请状态</th>
+                            <th style="width: 250px;">管理员备注</th>
+                            <th style="width: 80px;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="apply_list">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+</html>
+
+</html>
