@@ -4,7 +4,7 @@
  * @Author: SuperLy
  * @Date: 2021-08-01 16:36:53
  * @LastEditors: SuperLy
- * @LastEditTime: 2021-08-01 19:11:24
+ * @LastEditTime: 2021-12-08 12:02:11
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -56,8 +56,9 @@
 
     <script>
         $(function() {
-            // 获取楼栋列表
-            $.post('http://localhost:3000/getBuilding', function(result) {
+            const WWW = 'http://75bb04ac.cpolar.io'
+                // 获取楼栋列表
+            $.post(WWW + '/getBuilding', function(result) {
                 if (result.state === 1) {
                     let $bui_sel = $('#bui_sel');
                     let optionHtml = '<option value=""></option>';
@@ -79,7 +80,7 @@
             layui.form.on('submit(dormitory_add)', function(data) {
                 // 发请求
                 $.ajax({
-                    url: 'http://localhost:3000/addDormitory',
+                    url: WWW + '/addDormitory',
                     method: 'post',
                     data: data.field,
                     success: (result) => {

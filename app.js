@@ -4,7 +4,7 @@
  * @Author: SuperLy
  * @Date: 2021-07-25 20:58:16
  * @LastEditors: SuperLy
- * @LastEditTime: 2021-10-31 14:31:12
+ * @LastEditTime: 2021-12-08 12:15:46
  */
 const express = require('express');
 const app = express();
@@ -56,7 +56,7 @@ db(() => {
         if (err) {
             console.log(err);
         } else {
-            console.log('服务器启动成功！');
+            console.log('高校宿舍管理系统服务器启动成功！');
         }
     });
 });

@@ -4,10 +4,11 @@
  * @Author: SuperLy
  * @Date: 2021-08-01 19:55:52
  * @LastEditors: SuperLy
- * @LastEditTime: 2021-11-02 14:28:10
+ * @LastEditTime: 2021-12-08 12:10:38
  */
 $(function() {
-    // 发送 ajax请求，获取用户 姓名等
+    const WWW = 'http://75bb04ac.cpolar.io'
+        // 发送 ajax请求，获取用户 姓名等
     let sno = ''
     let userName = '';
     let password = '';
@@ -15,7 +16,7 @@ $(function() {
     //  获取配置信息
     function gitConfig() {
         $.ajax({
-            url: 'http://localhost:3000/getConfig',
+            url: WWW + '/getConfig',
             method: 'get',
             success: (res) => {
                 if (res.state === 1) {
@@ -45,7 +46,7 @@ $(function() {
     // 获取用户信息
     function getUserInfo() {
         $.ajax({
-            url: 'http://localhost:3000/get_user_info',
+            url: WWW + '/get_user_info',
             method: 'get',
             success: (result) => {
                 if (result.state === 1) {
@@ -96,7 +97,7 @@ $(function() {
     // 监听 开启/关闭 学生自主选择宿舍 开关
     layui.form.on('switch(isChoose)', function(data) {
         $.ajax({
-            url: 'http://localhost:3000/editConfig',
+            url: WWW + '/editConfig',
             method: 'post',
             data: { 'isFreeChoice': data.elem.checked },
             success: (res) => {
@@ -155,7 +156,7 @@ $(function() {
         let sno = $($(this).parent().siblings()[0]).html();
         // 发起删除请求
         $.ajax({
-            url: 'http://localhost:3000/delStudent',
+            url: WWW + '/delStudent',
             method: 'post',
             data: {
                 sno
@@ -204,15 +205,14 @@ $(function() {
             id: 'iframe',
             title: '修改数据',
             skin: 'layui-layer-rim', //加上边框
-            area: ['45%', '70%'], //宽高
+            area: ['50%', '70%'], //宽高
             content: './iframe/modStudent.html',
             success: function(sonDom, index) {
                 let sonWindow = $(sonDom[0]).find('iframe')[0].contentWindow;
                 // 获取楼栋列表
-                $.post('http://localhost:3000/getBuilding', function(result) {
+                $.post(WWW + '/getBuilding', function(result) {
                     if (result.state === 1) {
                         // 渲染拉框
-
                         let $bui_sel = $(sonWindow.document).find('#bui_sel');
                         let optionHtml = '<option value="未选择宿舍">暂不选择楼栋</option>';
                         for (let i = 0; i < result.data.length; i++) {
@@ -233,7 +233,7 @@ $(function() {
                         let cur_dor_id = $(sonWindow.document).find('.layui-form-select').find('.layui-this')[0].getAttribute('lay-value');
                         // 判断是否需要获取寝室列表
                         if (cur_dor_id !== '未选择宿舍') {
-                            $.post('http://localhost:3000/getDormitory', (result) => {
+                            $.post(WWW + '/getDormitory', (result) => {
                                 if (result.state === 1) {
                                     let dor_arr = [];
                                     // 筛选出被选中楼栋下的所有宿舍
@@ -298,7 +298,7 @@ $(function() {
     });
     // 渲染学生列表函数
     function getStudent() {
-        $.post("http://localhost:3000/getStudent", function(result) {
+        $.post(WWW + "/getStudent", function(result) {
             if (result.state === 1) {
                 // 获取学生数据成功，进行渲染
                 let stuHtml = '';
@@ -400,7 +400,7 @@ $(function() {
         let $bui_sel = $('#bui_sel_stu');
         $('#sno').val('');
         $('#name').val('');
-        $.post('http://localhost:3000/getBuilding', function(result) {
+        $.post(WWW + '/getBuilding', function(result) {
             if (result.state === 1) {
                 let last_bui_sel_stu = '';
                 let last_dor_sel = '';
@@ -430,7 +430,7 @@ $(function() {
                             }
                             if (data.value !== '暂未选择宿舍') {
                                 // 发请求获取该楼栋下的所有宿舍 并渲染到宿舍筛选列表
-                                $.post('http://localhost:3000/getDormitory', (result) => {
+                                $.post(WWW + '/getDormitory', (result) => {
                                     if (result.state === 1) {
                                         let dor_arr = [];
                                         // 筛选出被选中楼栋下的所有宿舍
@@ -500,7 +500,7 @@ $(function() {
     // 楼栋操作
     // 渲染楼栋列表函数
     function getBuilding() {
-        $.post("http://localhost:3000/getBuilding", function(result) {
+        $.post(WWW + "/getBuilding", function(result) {
             if (result.state === 1) {
                 // 获取楼栋数据成功，进行渲染
                 let buiHtml = '';
@@ -550,7 +550,7 @@ $(function() {
         let bui_id = $($(this).parent().siblings()[0]).html();
         // 发起删除请求
         $.ajax({
-            url: 'http://localhost:3000/delBuilding',
+            url: WWW + '/delBuilding',
             method: 'post',
             data: {
                 bui_id
@@ -613,7 +613,7 @@ $(function() {
     // 宿舍操作
     // 渲染宿舍列表函数
     function getDormitory() {
-        $.post("http://localhost:3000/getDormitory", function(result) {
+        $.post(WWW + "/getDormitory", function(result) {
             if (result.state === 1) {
                 // 获取寝室数据成功，进行渲染
                 let dorHtml = '';
@@ -669,7 +669,7 @@ $(function() {
         let dor_id = $($(this).parent().siblings()[1]).html();
         // 发起删除请求
         $.ajax({
-            url: 'http://localhost:3000/delDormitory',
+            url: WWW + '/delDormitory',
             method: 'post',
             data: {
                 bui_id,
@@ -757,7 +757,7 @@ $(function() {
         defOption[0].selected = 'selected';
         defOption[1].selected = 'selected';
         layui.form.render('select')
-        $.post('http://localhost:3000/getBuilding', function(result) {
+        $.post(WWW + '/getBuilding', function(result) {
             if (result.state === 1) {
                 let $bui_sel = $('#bui_sel');
                 let optionHtml = '<option value="">楼栋筛选</option>';
@@ -853,7 +853,7 @@ $(function() {
     function getApply() {
         $('#apply_list').html('');
         $.ajax({
-            url: 'http://localhost:3000/getApply',
+            url: WWW + '/getApply',
             method: 'post',
             data: {},
             success: function(res) {
@@ -917,7 +917,7 @@ $(function() {
             }, function(pass, index) {
                 postBody.newInfo = pass;
                 $.ajax({
-                    url: 'http://localhost:3000/dosApply',
+                    url: WWW + '/dosApply',
                     method: 'post',
                     data: postBody,
                     success: function(res) {
@@ -949,7 +949,7 @@ $(function() {
         }, () => {
             postBody.newInfo = '无';
             $.ajax({
-                url: 'http://localhost:3000/dosApply',
+                url: WWW + '/dosApply',
                 method: 'post',
                 data: postBody,
                 success: function(res) {
@@ -987,7 +987,7 @@ $(function() {
         postBody.state = $(this).parent().siblings()[5].innerText;
         postBody.info = $(this).parent().siblings()[6].innerText;
         $.ajax({
-            url: 'http://localhost:3000/agreeApply',
+            url: WWW + '/agreeApply',
             method: 'post',
             data: postBody,
             success: function(res) {
@@ -1091,9 +1091,9 @@ $(function() {
     // 退出
 
     $('#exit').click(() => {
-        $.get('http://localhost:3000/exit', function(result) {
+        $.get(WWW + '/exit', function(result) {
             if (result.state === 1) {
-                location.assign('http://localhost:3000');
+                location.assign(WWW + '');
             } else {
                 console.log('退出登陆时出错！请稍后再试');
             }

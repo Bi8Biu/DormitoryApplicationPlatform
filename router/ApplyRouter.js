@@ -4,7 +4,7 @@
  * @Author: SuperLy
  * @Date: 2021-10-31 13:22:18
  * @LastEditors: SuperLy
- * @LastEditTime: 2021-11-02 15:12:25
+ * @LastEditTime: 2021-11-19 14:16:23
  */
 const { Router } = require('express');
 const ApplyModel = require('../model/applyModel');
@@ -128,7 +128,7 @@ router.post('/agreeApply', (request, response) => {
                 if (!err) {
                     resolve()
                 } else {
-                    console.log('学生错误');
+                    console.log('修改学生信息错误');
                     reject(err)
                 }
             });

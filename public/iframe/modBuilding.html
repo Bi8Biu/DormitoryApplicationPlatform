@@ -4,7 +4,7 @@
  * @Author: SuperLy
  * @Date: 2021-08-01 15:25:52
  * @LastEditors: SuperLy
- * @LastEditTime: 2021-08-01 16:30:32
+ * @LastEditTime: 2021-12-08 12:02:31
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -37,10 +37,11 @@
     </form>
 
     <script>
+        const WWW = 'http://75bb04ac.cpolar.io'
         layui.form.on('submit(building_mod)', function(data) {
             // 发请求
             $.ajax({
-                url: 'http://localhost:3000/modBuilding',
+                url: WWW + '/modBuilding',
                 method: 'post',
                 data: data.field,
                 success: (result) => {

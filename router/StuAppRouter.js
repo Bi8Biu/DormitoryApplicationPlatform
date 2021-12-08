@@ -4,7 +4,7 @@
  * @Author: SuperLy
  * @Date: 2021-08-02 14:41:35
  * @LastEditors: SuperLy
- * @LastEditTime: 2021-11-02 11:18:41
+ * @LastEditTime: 2021-11-19 14:16:54
  */
 // 学生操作宿舍路由器
 const { Router } = require('express');
@@ -50,7 +50,6 @@ router.get('/exit_dor', (request, response) => {
 // 学生选择宿舍
 router.post('/choice_dor', (request, response) => {
     // state: 1：选择成功  0：宿舍满员了 -1：出错 -2：不可搬入异性寝室
-    console.log(request.body)
     if (JSON.stringify(request.body) !== '{}') {
         let { sno, bui_id, dor_id, cur_num, sex } = request.body;
         new Promise((resolve, reject) => {

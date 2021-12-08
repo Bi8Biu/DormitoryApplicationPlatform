@@ -4,9 +4,10 @@
  * @Author: SuperLy
  * @Date: 2021-08-02 17:36:26
  * @LastEditors: SuperLy
- * @LastEditTime: 2021-11-02 13:55:24
+ * @LastEditTime: 2021-12-08 12:14:37
  */
 $(function() {
+    const WWW = 'http://75bb04ac.cpolar.io'
     let sno = ''
     let userName = '';
     let password = '';
@@ -20,7 +21,7 @@ $(function() {
     function isFreeChoice() {
         return new Promise((resolve, rejiect) => {
             $.ajax({
-                url: 'http://localhost:3000/getConfig',
+                url: WWW + '/getConfig',
                 method: 'get',
                 success: (res) => {
                     if (res.state === 1) {
@@ -59,7 +60,7 @@ $(function() {
 
     //渲染筛选列表
     // 获取 所有tr
-    $.post('http://localhost:3000/getBuilding', function(result) {
+    $.post(WWW + '/getBuilding', function(result) {
         if (result.state === 1) {
             let $bui_sel = $('#bui_sel');
             let optionHtml = '<option value="">楼栋筛选</option>';
@@ -155,7 +156,7 @@ $(function() {
         // 更新数据
         // 更新用户数据
         $.ajax({
-            url: 'http://localhost:3000/get_user_info',
+            url: WWW + '/get_user_info',
             method: 'get',
             success: (result) => {
                 if (result.state === 1) {
@@ -172,7 +173,7 @@ $(function() {
                         dor_id = $($(that).parent().siblings()[1]).html();
                     }
                     //更新当前宿舍信息
-                    $.get('http://localhost:3000/get_dor_info', {
+                    $.get(WWW + '/get_dor_info', {
                         dor_id,
                         bui_id
                     }, function(result) {
@@ -214,7 +215,7 @@ $(function() {
         dor_id = '未选择宿舍';
         bui_id = '未选择宿舍';
         $.ajax({
-            url: 'http://localhost:3000/get_user_info',
+            url: WWW + '/get_user_info',
             method: 'get',
             success: (result) => {
                 if (result.state === 1) {
@@ -230,7 +231,7 @@ $(function() {
                         $('#choice_dor').addClass('current');
                     } else {
                         // 有宿舍，展示宿舍信息
-                        $.get('http://localhost:3000/get_dor_info', {
+                        $.get(WWW + '/get_dor_info', {
                             dor_id,
                             bui_id
                         }, function(result) {
@@ -247,7 +248,7 @@ $(function() {
                                 $('#exit_dor').click('click', exit_dor);
 
                                 // 获取室友信息
-                                $.get('http://localhost:3000/get_roommate', {
+                                $.get(WWW + '/get_roommate', {
                                     dor_id,
                                     bui_id
                                 }, function(result) {
@@ -347,7 +348,7 @@ $(function() {
 
     // 渲染宿舍列表函数
     function getDormitory() {
-        $.post("http://localhost:3000/getDormitory", function(result) {
+        $.post(WWW + "/getDormitory", function(result) {
             if (result.state === 1) {
                 // 获取寝室数据成功，进行渲染
                 let dorHtml = '';
@@ -390,7 +391,7 @@ $(function() {
     function getApply() {
         $('#apply_list').html('');
         $.ajax({
-            url: 'http://localhost:3000/getApply',
+            url: WWW + '/getApply',
             method: 'post',
             data: { sno },
             success: function(res) {
@@ -450,7 +451,7 @@ $(function() {
                     updateDate(() => {
                         // 发起选择宿舍请求
                         $.ajax({
-                            url: 'http://localhost:3000/choice_dor',
+                            url: WWW + '/choice_dor',
                             method: 'post',
                             data: {
                                 sno,
@@ -466,7 +467,7 @@ $(function() {
                                         time: 1000,
                                         icon: 6
                                     }, function() {
-                                        location.assign('http://localhost:3000/student');
+                                        location.assign(WWW + '/student');
                                     });
                                     return;
                                 } else if (result.state === 0) {
@@ -521,7 +522,7 @@ $(function() {
             let bui_id = $(this).parent().siblings()[0].innerText;
             let dor_id = $(this).parent().siblings()[1].innerText;
             $.ajax({
-                url: 'http://localhost:3000/addApply',
+                url: WWW + '/addApply',
                 method: 'post',
                 data: {
                     sno,
@@ -575,7 +576,7 @@ $(function() {
         postBody.state = $(this).parent().siblings()[5].innerText;
         postBody.info = $(this).parent().siblings()[6].innerText;
         $.ajax({
-            url: 'http://localhost:3000/removeApply',
+            url: WWW + '/removeApply',
             method: 'post',
             data: postBody,
             success: (res) => {
@@ -611,7 +612,7 @@ $(function() {
                     // 发请求
                     //将当前用户的宿舍信息调为 未选择宿舍（sno），将之前宿舍的入住人数减一（cur_num,bui_id,dor_id）
                     cur_num = cur_num - 1;
-                    $.get('http://localhost:3000/exit_dor', {
+                    $.get(WWW + '/exit_dor', {
                         sno,
                         cur_num,
                         bui_id,
@@ -680,9 +681,9 @@ $(function() {
     // 退出
     let $exit = $('#exit');
     $exit.one('click', () => {
-        $.get('http://localhost:3000/exit', function(result) {
+        $.get(WWW + '/exit', function(result) {
             if (result.state === 1) {
-                location.assign('http://localhost:3000');
+                location.assign(WWW + '');
             } else {
                 console.log('退出登陆时出错！请稍后再试');
             }
